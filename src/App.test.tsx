@@ -62,3 +62,27 @@ describe("When text is separated by an empty new line, it get's rendered into a 
     expect(output.innerHTML).toBe('<p>Paragraph</p>');
   });
 });
+
+describe('When a block starts with # and ## it is rendered in a <h1> and <h2> block respectively.', () => {
+  test('it should render # as <h1> block', () => {
+    //arrange
+    const { input, output } = setup();
+
+    //act
+    fireEvent.change(input, { target: { value: '#Title 1' } });
+
+    //assert
+    expect(output.innerHTML).toBe('<h1>Title 1</h1>');
+  });
+
+  test('it should render ## as <h2> block', () => {
+    //arrange
+    const { input, output } = setup();
+
+    //act
+    fireEvent.change(input, { target: { value: '##Title 2' } });
+
+    //assert
+    expect(output.innerHTML).toBe('<h2>Title 2</h2>');
+  });
+});
