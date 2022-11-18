@@ -23,3 +23,42 @@ test('it should render output component', () => {
   const { output } = setup();
   expect(output).toBeInTheDocument();
 });
+
+describe("When text is separated by an empty new line, it get's rendered into a new <p> block.", () => {
+  test('it should render empty lines as a p block', () => {
+    //arrange
+    const { input, output } = setup();
+
+    //act
+    fireEvent.change(input, { target: { value: 'Paragraph\n' } });
+
+    //assert
+    expect(output.innerHTML).toBe('<p>Paragraph</p><p></p>');
+  });
+
+  test('it should render new lines as <p> blocks', () => {
+    //arrange
+    const { input, output } = setup();
+
+    //act
+    fireEvent.change(input, {
+      target: {
+        value: 'Paragraph1' + '\nParagraph2',
+      },
+    });
+
+    //assert
+    expect(output.innerHTML).toBe('<p>Paragraph1</p>' + '<p>Paragraph2</p>');
+  });
+
+  test('it should render text into a <p> block', () => {
+    //arrange
+    const { input, output } = setup();
+
+    //act
+    fireEvent.change(input, { target: { value: 'Paragraph' } });
+
+    //assert
+    expect(output.innerHTML).toBe('<p>Paragraph</p>');
+  });
+});
