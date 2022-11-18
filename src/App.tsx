@@ -59,7 +59,7 @@ function App() {
   return (
     <div>
       <textarea onChange={(e) => setBlocks(parseMarkdown(e.target.value))} rows={5} />
-      <div>{createHTMLBlocks(addUlBlocks(blocks))}</div>
+      <div data-testid="output">{createHTMLBlocks(addUlBlocks(blocks))}</div>
     </div>
   );
 }
