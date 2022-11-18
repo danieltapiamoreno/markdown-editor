@@ -86,3 +86,48 @@ describe('When a block starts with # or ## it is rendered in a <h1> and <h2> blo
     expect(output.innerHTML).toBe('<h2>Title 2</h2>');
   });
 });
+
+describe('When a block starts with * or - it is rendered as li items in a ul block.', () => {
+  test('it should render * as <li> items in a <ul> block', () => {
+    //arrange
+    const { input, output } = setup();
+
+    //act
+    fireEvent.change(input, { target: { value: '*First\n*Second\n*Thrid' } });
+
+    //assert
+    expect(output.innerHTML).toBe(
+      '<ul>' + '<li>First</li>' + '<li>Second</li>' + '<li>Thrid</li>' + '</ul>',
+    );
+  });
+
+  test('it should render - as <li> items in a <ul> block', () => {
+    //arrange
+    const { input, output } = setup();
+
+    //act
+    fireEvent.change(input, {
+      target: { value: '-First' + '\n-Second' + '\n-Thrid' },
+    });
+
+    //assert
+    expect(output.innerHTML).toBe(
+      '<ul>' + '<li>First</li>' + '<li>Second</li>' + '<li>Thrid</li>' + '</ul>',
+    );
+  });
+
+  test('it should render * or - as <li> items in a <ul> block', () => {
+    //arrange
+    const { input, output } = setup();
+
+    //act
+    fireEvent.change(input, {
+      target: { value: '*First\n' + '-Second\n' + '*Thrid' },
+    });
+
+    //assert
+    expect(output.innerHTML).toBe(
+      '<ul>' + '<li>First</li>' + '<li>Second</li>' + '<li>Thrid</li>' + '</ul>',
+    );
+  });
+});
