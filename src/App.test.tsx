@@ -131,3 +131,37 @@ describe('When a block starts with * or - it is rendered as li items in a ul blo
     );
   });
 });
+
+describe('When text is entered in the input area it appears in the output area.', () => {
+  test('it should render # and ## as <h1> an <h2> blocks, text as <p> blocks, * or - as <li> items in a <ul> block', () => {
+    //arrange
+    const { input, output } = setup();
+
+    //act
+    fireEvent.change(input, {
+      target: {
+        value:
+          '#Title 1\n' +
+          '##Title 2\n' +
+          '*First\n' +
+          '-Second\n' +
+          '*Thrid\n' +
+          'Paragraph1\n' +
+          'Paragraph2',
+      },
+    });
+
+    //assert
+    expect(output.innerHTML).toBe(
+      '<h1>Title 1</h1>' +
+        '<h2>Title 2</h2>' +
+        '<ul>' +
+        '<li>First</li>' +
+        '<li>Second</li>' +
+        '<li>Thrid</li>' +
+        '</ul>' +
+        '<p>Paragraph1</p>' +
+        '<p>Paragraph2</p>',
+    );
+  });
+});
