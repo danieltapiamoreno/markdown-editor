@@ -63,7 +63,7 @@ describe("When text is separated by an empty new line, it get's rendered into a 
   });
 });
 
-describe('When a block starts with # and ## it is rendered in a <h1> and <h2> block respectively.', () => {
+describe('When a block starts with # or ## it is rendered in a <h1> and <h2> block respectively.', () => {
   test('it should render # as <h1> block', () => {
     //arrange
     const { input, output } = setup();
